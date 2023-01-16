@@ -1,6 +1,6 @@
-import { AppBar, Avatar, Icon, Toolbar, Typography } from '@mui/material';
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { AppBar, Avatar, Box, Button, Divider, Icon, Tab, Tabs, Toolbar, Typography } from '@mui/material';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import mpmg from '../assets/mpmg.png';
 import gsi from '../assets/gsi.png';
 import { User } from 'oidc-client';
@@ -14,6 +14,7 @@ type Props = {
 function HeaderMainFooter({ children }: Props) {
   const [currentUser, setCurrentUser] = useState<User>();
   const { getUser, logout } = useAuth();
+  const navigate = useNavigate();
 
   const loadUser = async () => {
     let u: User | null = null;
@@ -55,9 +56,14 @@ function HeaderMainFooter({ children }: Props) {
   return (<>
     <AppBar position="static">
       <Toolbar >
-        <Typography variant='h6'>
-          <Link to="/">Banco de Preços</Link>
-        </Typography>
+        <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+          <Button variant="text" sx={{ my: 2, color: 'white', display: 'block' }} onClick={() => navigate("/")}>
+            Banco de Preços
+          </Button>
+          <Button sx={{ my: 2, color: 'white', display: 'block' }} onClick={() => navigate("/monitoramentoDeDespesas")}>
+            Monitoramento de despesas
+          </Button>
+        </Box>
         <div className="ml-12 mr-4 max-w-[180px] text-white font-normal text-sm flex items-center gap-2 cursor-pointer">
           <Avatar
             sx={{

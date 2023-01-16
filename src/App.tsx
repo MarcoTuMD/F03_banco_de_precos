@@ -8,6 +8,7 @@ import { ptBR } from '@mui/x-data-grid';
 import { ptBR as corePtBr } from '@mui/material/locale';
 import PrivateRoute from './wrappers/PrivateRoute';
 import Login from './pages/Login';
+import ExpenseMonitoring from './pages/ExpenseMonitoring';
 
 const theme = createTheme(
   corePtBr,
@@ -21,7 +22,8 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/login" element={<Login />} />
-            <Route path="/" element={<PrivateRoute><Home /></PrivateRoute>} />
+            <Route path="/" element={<Home />} />
+            <Route path="/monitoramentoDeDespesas" element={<ExpenseMonitoring />} />
             <Route path="/result" element={<PrivateRoute><Result /></PrivateRoute>} />
           </Routes>
         </BrowserRouter>

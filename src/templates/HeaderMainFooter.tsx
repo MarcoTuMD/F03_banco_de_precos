@@ -9,9 +9,10 @@ import { Logout } from '@mui/icons-material';
 
 type Props = {
   children: JSX.Element
+  hideUser?: boolean;
 }
 
-function HeaderMainFooter({ children }: Props) {
+function HeaderMainFooter({ children, hideUser }: Props) {
   const [currentUser, setCurrentUser] = useState<User>();
   const { getUser, logout } = useAuth();
   const navigate = useNavigate();

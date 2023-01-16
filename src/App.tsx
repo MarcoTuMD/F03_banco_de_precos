@@ -9,6 +9,7 @@ import { ptBR as corePtBr } from '@mui/material/locale';
 import PrivateRoute from './wrappers/PrivateRoute';
 import Login from './pages/Login';
 import ExpenseMonitoring from './pages/ExpenseMonitoring';
+import Fail from './pages/Fail';
 
 const theme = createTheme(
   corePtBr,
@@ -22,8 +23,10 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/login" element={<Login />} />
+
             <Route path="/" element={<Home />} />
             <Route path="/monitoramentoDeDespesas" element={<ExpenseMonitoring />} />
+            <Route path="/fail" element={<Fail />} />
             <Route path="/result" element={<PrivateRoute><Result /></PrivateRoute>} />
           </Routes>
         </BrowserRouter>

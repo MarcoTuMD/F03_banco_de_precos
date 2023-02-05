@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import HeaderMainFooter from '../templates/HeaderMainFooter';
 import { Button, Typography, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, Divider, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Box, TextField } from '@mui/material';
 import TimeViewChart, { apiData } from '../components/TimeViewChart';
 import CityExpensesChart from '../components/CityExpensesChart';
@@ -5243,7 +5242,7 @@ function ExpenseMonitoring() {
         setShowChart(true);
     };
 
-    return (<HeaderMainFooter>
+    return (
         <div className="w-full flex flex-col items-center text-center">
             <div className="p-9 w-1/2">
                 <Typography variant='h4'>Monitoramento de despesas</Typography>
@@ -5274,7 +5273,7 @@ function ExpenseMonitoring() {
 
             </div>
         </div>
-    </HeaderMainFooter>);
+    );
 }
 
 export default ExpenseMonitoring;

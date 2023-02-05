@@ -1,11 +1,11 @@
 import { Button } from '@mui/material';
 import { Link } from 'react-router-dom';
-import HeaderMainFooter from '../templates/HeaderMainFooter';
 import PersonOffIcon from '@mui/icons-material/PersonOff';
+import React from 'react';
 
 function Fail() {
 
-    return (<HeaderMainFooter hideUser >
+    return (
         <div className="w-full max-w-4xl min-h-main mx-auto flex items-center justify-center">
             <div className='text-center flex flex-col gap-4 justify-center'>
                 <span>
@@ -20,7 +20,7 @@ function Fail() {
                 </p>
             </div>
         </div>
-    </HeaderMainFooter >);
+    );
 }
 
 export default Fail;

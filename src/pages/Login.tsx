@@ -3,6 +3,7 @@ import { useContext, useEffect } from 'react';
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { GlobalStateContext } from "../wrappers/GlobalContext";
 import { User } from "oidc-client";
+import React from "react";
 
 function Login() {
     let [searchParams] = useSearchParams();

@@ -1,3 +1,4 @@
+import React from 'react';
 import { FunctionComponent } from 'react';
 import { XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Line, LineChart, Dot } from 'recharts';
 
@@ -44,15 +45,15 @@ function CityExpensesChart({ apiData }: TimeViewChartProps) {
 
             let aux: Data = {
                 name: apiData[i].ano_exercicio.concat("/").concat(apiData[i].mes_exercicio),
-                Despesas_do_municipio: apiData[i].sum_target,
-                Media_municipios_similares: apiData[i].avg_sum_similar,
+                Despesas_do_municipio: +apiData[i].sum_target.toFixed(2),
+                Media_municipios_similares: +apiData[i].avg_sum_similar.toFixed(2),
                 outlier: apiData[i].outlier,
             };
 
             data.push(aux)
         }
     };
-
+    const formatter = (value: any) => `R$${value / 1000000}M`;
     createData();
     return (<ResponsiveContainer width="95%" height="95%">
         <LineChart
@@ -68,7 +69,7 @@ function CityExpensesChart({ apiData }: TimeViewChartProps) {
         >
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="name" />
-            <YAxis />
+            <YAxis tickFormatter={formatter} />
             <Tooltip />
             <Legend />
             <Line type="monotone" dataKey="Despesas_do_municipio" stroke="#1A5276" dot={<CustomizedDot />} />

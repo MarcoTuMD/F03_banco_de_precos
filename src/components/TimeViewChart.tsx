@@ -1,3 +1,4 @@
+import React from 'react';
 import { XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Line, LineChart } from 'recharts';
 
 interface Data {
@@ -6,7 +7,7 @@ interface Data {
     Previsao?: number;
 }
 
-interface apiData {
+export interface apiData {
     ano_exercicio: string,
     mes_exercicio: string,
     vlr: number,
@@ -32,17 +33,19 @@ function TimeViewChart({ apiData }: TimeViewChartProps) {
             if (apiData[i].flag === "train") {
                 aux = {
                     name: apiData[i].ano_exercicio.concat("/").concat(apiData[i].mes_exercicio),
-                    Dados_Reais: apiData[i].vlr,
+                    Dados_Reais: +apiData[i].vlr.toFixed(2),
                 }
             } else {
                 aux = {
                     name: apiData[i].ano_exercicio.concat("/").concat(apiData[i].mes_exercicio),
-                    Previsao: apiData[i].vlr,
+                    Previsao: +apiData[i].vlr.toFixed(2),
                 }
             }
             data.push(aux)
         }
     };
+
+    const formatter = (value: any) => `R$${value / 1000000000}B`;
 
     createData();
 
@@ -60,7 +63,7 @@ function TimeViewChart({ apiData }: TimeViewChartProps) {
         >
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="name" />
-            <YAxis />
+            <YAxis tickFormatter={formatter} />
             <Tooltip />
             <Legend />
             <Line type="monotone" dataKey="Dados_Reais" stroke="#1A5276" />

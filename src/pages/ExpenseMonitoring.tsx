@@ -1,767 +1,10 @@
-import React, { SetStateAction, useState } from 'react';
+import { useState } from 'react';
 import HeaderMainFooter from '../templates/HeaderMainFooter';
-import { Button, Typography, Badge, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, Divider, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
-import TimeViewChart from '../components/TimeViewChart';
+import { Button, Typography, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, Divider, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Box, TextField } from '@mui/material';
+import TimeViewChart, { apiData } from '../components/TimeViewChart';
 import CityExpensesChart from '../components/CityExpensesChart';
-
-const timeViewData = [
-    {
-        "ano_exercicio": "2014",
-        "mes_exercicio": "01",
-        "vlr": 2384978.3295059204,
-        "flag": "train"
-    },
-    {
-        "ano_exercicio": "2014",
-        "mes_exercicio": "02",
-        "vlr": 24698293.5707016,
-        "flag": "train"
-    },
-    {
-        "ano_exercicio": "2014",
-        "mes_exercicio": "03",
-        "vlr": 26071230.019737244,
-        "flag": "train"
-    },
-    {
-        "ano_exercicio": "2014",
-        "mes_exercicio": "04",
-        "vlr": 29793550.124464035,
-        "flag": "train"
-    },
-    {
-        "ano_exercicio": "2014",
-        "mes_exercicio": "05",
-        "vlr": 32607078.52332306,
-        "flag": "train"
-    },
-    {
-        "ano_exercicio": "2014",
-        "mes_exercicio": "06",
-        "vlr": 31006466.864656687,
-        "flag": "train"
-    },
-    {
-        "ano_exercicio": "2014",
-        "mes_exercicio": "07",
-        "vlr": 29530273.39221573,
-        "flag": "train"
-    },
-    {
-        "ano_exercicio": "2014",
-        "mes_exercicio": "08",
-        "vlr": 27420709.678741455,
-        "flag": "train"
-    },
-    {
-        "ano_exercicio": "2014",
-        "mes_exercicio": "09",
-        "vlr": 34479605.105638504,
-        "flag": "train"
-    },
-    {
-        "ano_exercicio": "2014",
-        "mes_exercicio": "10",
-        "vlr": 36606581.70982361,
-        "flag": "train"
-    },
-    {
-        "ano_exercicio": "2014",
-        "mes_exercicio": "11",
-        "vlr": 43916947.35397339,
-        "flag": "train"
-    },
-    {
-        "ano_exercicio": "2014",
-        "mes_exercicio": "12",
-        "vlr": 30609723.063102722,
-        "flag": "train"
-    },
-    {
-        "ano_exercicio": "2015",
-        "mes_exercicio": "01",
-        "vlr": 8633182.610721588,
-        "flag": "train"
-    },
-    {
-        "ano_exercicio": "2015",
-        "mes_exercicio": "02",
-        "vlr": 25249999.18560028,
-        "flag": "train"
-    },
-    {
-        "ano_exercicio": "2015",
-        "mes_exercicio": "03",
-        "vlr": 36916580.35580444,
-        "flag": "train"
-    },
-    {
-        "ano_exercicio": "2015",
-        "mes_exercicio": "04",
-        "vlr": 29604856.98373413,
-        "flag": "train"
-    },
-    {
-        "ano_exercicio": "2015",
-        "mes_exercicio": "05",
-        "vlr": 33514335.41567993,
-        "flag": "train"
-    },
-    {
-        "ano_exercicio": "2015",
-        "mes_exercicio": "06",
-        "vlr": 30235032.48348999,
-        "flag": "train"
-    },
-    {
-        "ano_exercicio": "2015",
-        "mes_exercicio": "07",
-        "vlr": 32277148.756015778,
-        "flag": "train"
-    },
-    {
-        "ano_exercicio": "2015",
-        "mes_exercicio": "08",
-        "vlr": 35854356.665626526,
-        "flag": "train"
-    },
-    {
-        "ano_exercicio": "2015",
-        "mes_exercicio": "09",
-        "vlr": 33501326.274101257,
-        "flag": "train"
-    },
-    {
-        "ano_exercicio": "2015",
-        "mes_exercicio": "10",
-        "vlr": 34494045.57913971,
-        "flag": "train"
-    },
-    {
-        "ano_exercicio": "2015",
-        "mes_exercicio": "11",
-        "vlr": 28362030.995182037,
-        "flag": "train"
-    },
-    {
-        "ano_exercicio": "2015",
-        "mes_exercicio": "12",
-        "vlr": 50877316.72815704,
-        "flag": "train"
-    },
-    {
-        "ano_exercicio": "2016",
-        "mes_exercicio": "01",
-        "vlr": 2913825.626159668,
-        "flag": "train"
-    },
-    {
-        "ano_exercicio": "2016",
-        "mes_exercicio": "02",
-        "vlr": 23534008.910247803,
-        "flag": "train"
-    },
-    {
-        "ano_exercicio": "2016",
-        "mes_exercicio": "03",
-        "vlr": 27350470.49407196,
-        "flag": "train"
-    },
-    {
-        "ano_exercicio": "2016",
-        "mes_exercicio": "04",
-        "vlr": 31760426.011810303,
-        "flag": "train"
-    },
-    {
-        "ano_exercicio": "2016",
-        "mes_exercicio": "05",
-        "vlr": 31069117.80315399,
-        "flag": "train"
-    },
-    {
-        "ano_exercicio": "2016",
-        "mes_exercicio": "06",
-        "vlr": 35509785.24555206,
-        "flag": "train"
-    },
-    {
-        "ano_exercicio": "2016",
-        "mes_exercicio": "07",
-        "vlr": 32808744.284965515,
-        "flag": "train"
-    },
-    {
-        "ano_exercicio": "2016",
-        "mes_exercicio": "08",
-        "vlr": 36286285.28037262,
-        "flag": "train"
-    },
-    {
-        "ano_exercicio": "2016",
-        "mes_exercicio": "09",
-        "vlr": 33980522.83869934,
-        "flag": "train"
-    },
-    {
-        "ano_exercicio": "2016",
-        "mes_exercicio": "10",
-        "vlr": 37939077.60085297,
-        "flag": "train"
-    },
-    {
-        "ano_exercicio": "2016",
-        "mes_exercicio": "11",
-        "vlr": 46978162.9281044,
-        "flag": "train"
-    },
-    {
-        "ano_exercicio": "2016",
-        "mes_exercicio": "12",
-        "vlr": 53123623.84508133,
-        "flag": "train"
-    },
-    {
-        "ano_exercicio": "2017",
-        "mes_exercicio": "01",
-        "vlr": 4622111.567956537,
-        "flag": "train"
-    },
-    {
-        "ano_exercicio": "2017",
-        "mes_exercicio": "02",
-        "vlr": 24750006.421180725,
-        "flag": "train"
-    },
-    {
-        "ano_exercicio": "2017",
-        "mes_exercicio": "03",
-        "vlr": 37558163.84887695,
-        "flag": "train"
-    },
-    {
-        "ano_exercicio": "2017",
-        "mes_exercicio": "04",
-        "vlr": 34134761.83570862,
-        "flag": "train"
-    },
-    {
-        "ano_exercicio": "2017",
-        "mes_exercicio": "05",
-        "vlr": 34161240.87119293,
-        "flag": "train"
-    },
-    {
-        "ano_exercicio": "2017",
-        "mes_exercicio": "06",
-        "vlr": 36491360.908691406,
-        "flag": "train"
-    },
-    {
-        "ano_exercicio": "2017",
-        "mes_exercicio": "07",
-        "vlr": 32206339.417373657,
-        "flag": "train"
-    },
-    {
-        "ano_exercicio": "2017",
-        "mes_exercicio": "08",
-        "vlr": 38319187.35188866,
-        "flag": "train"
-    },
-    {
-        "ano_exercicio": "2017",
-        "mes_exercicio": "09",
-        "vlr": 40320240.95639038,
-        "flag": "train"
-    },
-    {
-        "ano_exercicio": "2017",
-        "mes_exercicio": "10",
-        "vlr": 57618151.2891407,
-        "flag": "train"
-    },
-    {
-        "ano_exercicio": "2017",
-        "mes_exercicio": "11",
-        "vlr": 38930057.01098633,
-        "flag": "train"
-    },
-    {
-        "ano_exercicio": "2017",
-        "mes_exercicio": "12",
-        "vlr": 47341212.32820892,
-        "flag": "train"
-    },
-    {
-        "ano_exercicio": "2018",
-        "mes_exercicio": "01",
-        "vlr": 3605488.263584137,
-        "flag": "train"
-    },
-    {
-        "ano_exercicio": "2018",
-        "mes_exercicio": "02",
-        "vlr": 32206548.109825134,
-        "flag": "train"
-    },
-    {
-        "ano_exercicio": "2018",
-        "mes_exercicio": "03",
-        "vlr": 55965602.80825806,
-        "flag": "train"
-    },
-    {
-        "ano_exercicio": "2018",
-        "mes_exercicio": "04",
-        "vlr": 37236812.262405396,
-        "flag": "train"
-    },
-    {
-        "ano_exercicio": "2018",
-        "mes_exercicio": "05",
-        "vlr": 34548069.54498291,
-        "flag": "train"
-    },
-    {
-        "ano_exercicio": "2018",
-        "mes_exercicio": "06",
-        "vlr": 42593471.32646942,
-        "flag": "train"
-    },
-    {
-        "ano_exercicio": "2018",
-        "mes_exercicio": "07",
-        "vlr": 40641455.96762085,
-        "flag": "train"
-    },
-    {
-        "ano_exercicio": "2018",
-        "mes_exercicio": "08",
-        "vlr": 40838955.76776123,
-        "flag": "train"
-    },
-    {
-        "ano_exercicio": "2018",
-        "mes_exercicio": "09",
-        "vlr": 37966719.47831726,
-        "flag": "train"
-    },
-    {
-        "ano_exercicio": "2018",
-        "mes_exercicio": "10",
-        "vlr": 45317788.590423584,
-        "flag": "train"
-    },
-    {
-        "ano_exercicio": "2018",
-        "mes_exercicio": "11",
-        "vlr": 40998671.2776947,
-        "flag": "train"
-    },
-    {
-        "ano_exercicio": "2018",
-        "mes_exercicio": "12",
-        "vlr": 48339500.292907715,
-        "flag": "train"
-    },
-    {
-        "ano_exercicio": "2019",
-        "mes_exercicio": "01",
-        "vlr": 20093275.782470703,
-        "flag": "train"
-    },
-    {
-        "ano_exercicio": "2019",
-        "mes_exercicio": "02",
-        "vlr": 39137511.54109192,
-        "flag": "train"
-    },
-    {
-        "ano_exercicio": "2019",
-        "mes_exercicio": "03",
-        "vlr": 35802725.098464966,
-        "flag": "train"
-    },
-    {
-        "ano_exercicio": "2019",
-        "mes_exercicio": "04",
-        "vlr": 45759986.22113955,
-        "flag": "train"
-    },
-    {
-        "ano_exercicio": "2019",
-        "mes_exercicio": "05",
-        "vlr": 42519308.579574585,
-        "flag": "train"
-    },
-    {
-        "ano_exercicio": "2019",
-        "mes_exercicio": "06",
-        "vlr": 39779950.25487518,
-        "flag": "train"
-    },
-    {
-        "ano_exercicio": "2019",
-        "mes_exercicio": "07",
-        "vlr": 42977425.87401581,
-        "flag": "train"
-    },
-    {
-        "ano_exercicio": "2019",
-        "mes_exercicio": "08",
-        "vlr": 42811287.89666748,
-        "flag": "train"
-    },
-    {
-        "ano_exercicio": "2019",
-        "mes_exercicio": "09",
-        "vlr": 40718632.04394531,
-        "flag": "train"
-    },
-    {
-        "ano_exercicio": "2019",
-        "mes_exercicio": "10",
-        "vlr": 42116089.86846924,
-        "flag": "train"
-    },
-    {
-        "ano_exercicio": "2019",
-        "mes_exercicio": "11",
-        "vlr": 47337250.49630833,
-        "flag": "train"
-    },
-    {
-        "ano_exercicio": "2019",
-        "mes_exercicio": "12",
-        "vlr": 50211798.0351429,
-        "flag": "train"
-    },
-    {
-        "ano_exercicio": "2020",
-        "mes_exercicio": "01",
-        "vlr": 27975987.64452362,
-        "flag": "train"
-    },
-    {
-        "ano_exercicio": "2020",
-        "mes_exercicio": "02",
-        "vlr": 39788320.42448425,
-        "flag": "train"
-    },
-    {
-        "ano_exercicio": "2020",
-        "mes_exercicio": "03",
-        "vlr": 41777496.06050873,
-        "flag": "train"
-    },
-    {
-        "ano_exercicio": "2020",
-        "mes_exercicio": "04",
-        "vlr": 55673025.35824585,
-        "flag": "train"
-    },
-    {
-        "ano_exercicio": "2020",
-        "mes_exercicio": "05",
-        "vlr": 44243310.98917389,
-        "flag": "train"
-    },
-    {
-        "ano_exercicio": "2020",
-        "mes_exercicio": "06",
-        "vlr": 42951733.665130615,
-        "flag": "train"
-    },
-    {
-        "ano_exercicio": "2020",
-        "mes_exercicio": "07",
-        "vlr": 52601929.718826294,
-        "flag": "train"
-    },
-    {
-        "ano_exercicio": "2020",
-        "mes_exercicio": "08",
-        "vlr": 48536917.15682793,
-        "flag": "train"
-    },
-    {
-        "ano_exercicio": "2020",
-        "mes_exercicio": "09",
-        "vlr": 52146700.49391174,
-        "flag": "train"
-    },
-    {
-        "ano_exercicio": "2020",
-        "mes_exercicio": "10",
-        "vlr": 77071170.09819031,
-        "flag": "train"
-    },
-    {
-        "ano_exercicio": "2020",
-        "mes_exercicio": "11",
-        "vlr": 53927872.07324219,
-        "flag": "train"
-    },
-    {
-        "ano_exercicio": "2020",
-        "mes_exercicio": "12",
-        "vlr": 69180654.87216187,
-        "flag": "train"
-    },
-    {
-        "ano_exercicio": "2021",
-        "mes_exercicio": "01",
-        "vlr": 29840554.106445312,
-        "flag": "train"
-    },
-    {
-        "ano_exercicio": "2021",
-        "mes_exercicio": "02",
-        "vlr": 37730457.22186279,
-        "flag": "train"
-    },
-    {
-        "ano_exercicio": "2021",
-        "mes_exercicio": "03",
-        "vlr": 49379829.4977417,
-        "flag": "train"
-    },
-    {
-        "ano_exercicio": "2021",
-        "mes_exercicio": "04",
-        "vlr": 49922804.000514984,
-        "flag": "train"
-    },
-    {
-        "ano_exercicio": "2021",
-        "mes_exercicio": "05",
-        "vlr": 57359705.05043793,
-        "flag": "train"
-    },
-    {
-        "ano_exercicio": "2021",
-        "mes_exercicio": "06",
-        "vlr": 53597848.52825928,
-        "flag": "train"
-    },
-    {
-        "ano_exercicio": "2021",
-        "mes_exercicio": "07",
-        "vlr": 31165993.470044028,
-        "flag": "pred"
-    },
-    {
-        "ano_exercicio": "2021",
-        "mes_exercicio": "08",
-        "vlr": 34681146.078645885,
-        "flag": "pred"
-    },
-    {
-        "ano_exercicio": "2021",
-        "mes_exercicio": "09",
-        "vlr": 43045547.311900064,
-        "flag": "pred"
-    },
-    {
-        "ano_exercicio": "2021",
-        "mes_exercicio": "10",
-        "vlr": 49846148.81870081,
-        "flag": "pred"
-    },
-    {
-        "ano_exercicio": "2021",
-        "mes_exercicio": "11",
-        "vlr": 47726202.642237216,
-        "flag": "pred"
-    },
-    {
-        "ano_exercicio": "2021",
-        "mes_exercicio": "12",
-        "vlr": 40903933.1896998,
-        "flag": "pred"
-    },
-    {
-        "ano_exercicio": "2022",
-        "mes_exercicio": "01",
-        "vlr": 42515459.96486828,
-        "flag": "pred"
-    },
-    {
-        "ano_exercicio": "2022",
-        "mes_exercicio": "02",
-        "vlr": 43569871.26132876,
-        "flag": "pred"
-    },
-    {
-        "ano_exercicio": "2022",
-        "mes_exercicio": "03",
-        "vlr": 47805856.62964505,
-        "flag": "pred"
-    },
-    {
-        "ano_exercicio": "2022",
-        "mes_exercicio": "04",
-        "vlr": 43941715.36321902,
-        "flag": "pred"
-    },
-    {
-        "ano_exercicio": "2022",
-        "mes_exercicio": "05",
-        "vlr": 44070987.27073197,
-        "flag": "pred"
-    },
-    {
-        "ano_exercicio": "2022",
-        "mes_exercicio": "06",
-        "vlr": 46488869.30455583,
-        "flag": "pred"
-    },
-    {
-        "ano_exercicio": "2022",
-        "mes_exercicio": "07",
-        "vlr": 48095738.60734246,
-        "flag": "pred"
-    },
-    {
-        "ano_exercicio": "2022",
-        "mes_exercicio": "08",
-        "vlr": 43117792.4204215,
-        "flag": "pred"
-    },
-    {
-        "ano_exercicio": "2022",
-        "mes_exercicio": "09",
-        "vlr": 46423378.15211759,
-        "flag": "pred"
-    },
-    {
-        "ano_exercicio": "2022",
-        "mes_exercicio": "10",
-        "vlr": 48784197.612547636,
-        "flag": "pred"
-    },
-    {
-        "ano_exercicio": "2022",
-        "mes_exercicio": "11",
-        "vlr": 43162754.28971874,
-        "flag": "pred"
-    },
-    {
-        "ano_exercicio": "2022",
-        "mes_exercicio": "12",
-        "vlr": 46912439.68920842,
-        "flag": "pred"
-    },
-    {
-        "ano_exercicio": "2023",
-        "mes_exercicio": "01",
-        "vlr": 47429721.06127875,
-        "flag": "pred"
-    },
-    {
-        "ano_exercicio": "2023",
-        "mes_exercicio": "02",
-        "vlr": 44569872.32802012,
-        "flag": "pred"
-    },
-    {
-        "ano_exercicio": "2023",
-        "mes_exercicio": "03",
-        "vlr": 45606171.606924966,
-        "flag": "pred"
-    },
-    {
-        "ano_exercicio": "2023",
-        "mes_exercicio": "04",
-        "vlr": 46673805.161101885,
-        "flag": "pred"
-    },
-    {
-        "ano_exercicio": "2023",
-        "mes_exercicio": "05",
-        "vlr": 46679999.77627113,
-        "flag": "pred"
-    },
-    {
-        "ano_exercicio": "2023",
-        "mes_exercicio": "06",
-        "vlr": 45326901.82996454,
-        "flag": "pred"
-    },
-    {
-        "ano_exercicio": "2023",
-        "mes_exercicio": "07",
-        "vlr": 44421392.47922244,
-        "flag": "pred"
-    },
-    {
-        "ano_exercicio": "2023",
-        "mes_exercicio": "08",
-        "vlr": 45585667.40159385,
-        "flag": "pred"
-    },
-    {
-        "ano_exercicio": "2023",
-        "mes_exercicio": "09",
-        "vlr": 45320332.29056784,
-        "flag": "pred"
-    },
-    {
-        "ano_exercicio": "2023",
-        "mes_exercicio": "10",
-        "vlr": 45465649.823178895,
-        "flag": "pred"
-    },
-    {
-        "ano_exercicio": "2023",
-        "mes_exercicio": "11",
-        "vlr": 44864223.31335943,
-        "flag": "pred"
-    },
-    {
-        "ano_exercicio": "2023",
-        "mes_exercicio": "12",
-        "vlr": 44658566.08219658,
-        "flag": "pred"
-    },
-    {
-        "ano_exercicio": "2024",
-        "mes_exercicio": "01",
-        "vlr": 44507849.400731556,
-        "flag": "pred"
-    },
-    {
-        "ano_exercicio": "2024",
-        "mes_exercicio": "02",
-        "vlr": 44641455.55396413,
-        "flag": "pred"
-    },
-    {
-        "ano_exercicio": "2024",
-        "mes_exercicio": "03",
-        "vlr": 44868060.24192441,
-        "flag": "pred"
-    },
-    {
-        "ano_exercicio": "2024",
-        "mes_exercicio": "04",
-        "vlr": 44971999.87710487,
-        "flag": "pred"
-    },
-    {
-        "ano_exercicio": "2024",
-        "mes_exercicio": "05",
-        "vlr": 45452973.44613701,
-        "flag": "pred"
-    },
-    {
-        "ano_exercicio": "2024",
-        "mes_exercicio": "06",
-        "vlr": 44817780.57942074,
-        "flag": "pred"
-    }
-]
+import React from 'react';
+import { post } from '../services/apiRequest';
 
 const cityExpensesData = [
     {
@@ -1593,15 +836,23 @@ const rows = [
     createData(4, "Ipatinga", "04/2019", "02.20062.10.302.0012.000.3.1.90.04.000.102", 2),
 ];
 
+
 function ExpenseMonitoring() {
-    const [monitoringOption, setMonitoringOption] = useState<string>("");
+
     const [entity, setEntity] = useState("");
     const [organ, setOrgan] = useState("");
     const [role, setRole] = useState("");
     const [subRole, setSubRole] = useState("");
     const [nature, setNature] = useState("");
     const [font, setFont] = useState("");
-
+    const [monitoringOption, setMonitoringOption] = useState("");
+    const [showChart, setShowChart] = useState(false);
+    const [data, setData] = useState<apiData[]>([{
+        ano_exercicio: "",
+        mes_exercicio: "",
+        vlr: 0,
+        flag: ""
+    }]);
 
     const handleChangeEntity = (event: SelectChangeEvent) => {
         setEntity(event.target.value as string);
@@ -1627,11 +878,10 @@ function ExpenseMonitoring() {
         setFont(event.target.value as string);
     }
 
+
     const renderChart = () => {
         if (monitoringOption == "1") {
-            return (
-                <TimeViewChart apiData={timeViewData} />
-            );
+            return (<TimeViewChart apiData={data} />);
         } else if (monitoringOption == "2") {
             return (
                 <CityExpensesChart apiData={cityExpensesData} />
@@ -1666,12 +916,14 @@ function ExpenseMonitoring() {
                         </TableBody>
                     </Table>
                 </TableContainer>);
+        } else {
+            return null;
         }
     };
 
     const renderFilters = () => {
         return (
-            <>
+            <Box>
                 <Typography variant="body1" color="initial" sx={{ fontWeight: 'bold', m: 1 }}>Filtros: </Typography>
                 <FormControl fullWidth size="small">
                     <InputLabel id="entidade-option">Entidade</InputLabel>
@@ -4871,20 +4123,6 @@ function ExpenseMonitoring() {
                     </Select>
                 </FormControl>
                 <FormControl fullWidth size="small" sx={{ mt: 2 }}>
-                    <InputLabel id="orgao-option">Elemento</InputLabel>
-                    <Select
-                        labelId="elemento-option"
-                        id="elemento-option"
-                        value={""}
-                        label="Elemento"
-                        onChange={() => { }}
-                    >
-                        <MenuItem value={10}>1</MenuItem>
-                        <MenuItem value={20}>2</MenuItem>
-                        <MenuItem value={30}>3</MenuItem>
-                    </Select>
-                </FormControl>
-                <FormControl fullWidth size="small" sx={{ mt: 2 }}>
                     <InputLabel id="natureza-option">Natureza</InputLabel>
                     <Select
                         labelId="natureza-option"
@@ -5978,27 +5216,31 @@ function ExpenseMonitoring() {
                 </FormControl>
                 {monitoringOption == "3" &&
                     <FormControl fullWidth size="small" sx={{ mt: 2 }}>
-                        <InputLabel id="credores-option">Qtd. Credores</InputLabel>
-                        <Select
-                            labelId="credores-option"
-                            id="credores-option"
-                            value={""}
-                            label="Qtd. Credores"
-                            onChange={() => { }}
-                        >
-                            <MenuItem value={10}>1</MenuItem>
-                            <MenuItem value={20}>2</MenuItem>
-                            <MenuItem value={30}>3</MenuItem>
-                        </Select>
+                        <TextField id="outlined-basic" label="Qtd. de credores" variant="outlined" size="small" type="number" />
                     </FormControl>
                 }
-                <Button variant="contained" sx={{ margin: '0 auto', mt: 3, display: "flex" }}>Consultar</Button>
-            </>
+                <Button variant="contained" sx={{ margin: '0 auto', mt: 3, display: "flex" }} disabled={monitoringOption != "1" && monitoringOption != "2" && monitoringOption != "3"} onClick={useHandleClick}>Consultar</Button>
+            </Box>
         )
     }
 
     const handleChange = (event: SelectChangeEvent) => {
         setMonitoringOption(event.target.value);
+        setShowChart(false);
+    };
+
+    const useHandleClick = async () => {
+        if (monitoringOption == "1") {
+            const resp = await post("monitoramento_despesa/expense_monitoring/forecast", {});
+            setData(resp);
+        } else if (monitoringOption == "2") {
+            const resp = await post("monitoramento_despesa/expense_monitoring/forecast", {});
+            setData(resp);
+        } else if (monitoringOption == "3") {
+            const resp = await post("monitoramento_despesa/expense_monitoring/forecast", {});
+            setData(resp);
+        }
+        setShowChart(true);
     };
 
     return (<HeaderMainFooter>
@@ -6014,21 +5256,20 @@ function ExpenseMonitoring() {
                         label="Selecione uma opção de monitoramento"
                         onChange={handleChange}
                     >
-                        <MenuItem value={1}>Visualizações temporal dos valores das despesas com métricas de tendência</MenuItem>
-                        <MenuItem value={2}>Municípios com despesas fora do padrão</MenuItem>
-                        <MenuItem value={3}>Municípios com número de credores limitados </MenuItem>
+                        <MenuItem value={"1"}>Visualizações temporal dos valores das despesas com métricas de tendência</MenuItem>
+                        <MenuItem value={"2"}>Municípios com despesas fora do padrão</MenuItem>
+                        <MenuItem value={"3"}>Municípios com número de credores limitados </MenuItem>
                     </Select>
                 </FormControl>
             </div>
 
             <div className="w-11/12 flex flex-row ">
-                <div className="basis-1/4">
-
+                <div className="basis-1/4 max-w-sm">
                     {renderFilters()}
                 </div>
                 <Divider orientation="vertical" sx={{ m: 3, bgcolor: "blue" }} flexItem />
                 <div className="basis-9/12 flex justify-center justify-items-center place-items-center">
-                    {renderChart()}
+                    {showChart && renderChart()}
                 </div>
 
             </div>

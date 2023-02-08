@@ -15,6 +15,7 @@ const theme = createTheme(
 );
 
 function App() {
+  document.title = "Monitoramento de Despesas";
   return (
     <ThemeProvider theme={theme}>
       <GlobalContext>

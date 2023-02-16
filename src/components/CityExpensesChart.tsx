@@ -9,7 +9,7 @@ interface Data {
     outlier: boolean;
 }
 
-interface apiData {
+export interface apiDataCity {
     ano_exercicio: string;
     mes_exercicio: string;
     cod_municipio: string;
@@ -20,7 +20,7 @@ interface apiData {
 };
 
 interface TimeViewChartProps {
-    apiData: apiData[];
+    apiData: apiDataCity[];
 }
 
 const CustomizedDot: FunctionComponent<any> = (props: any) => {
@@ -53,7 +53,7 @@ function CityExpensesChart({ apiData }: TimeViewChartProps) {
             data.push(aux)
         }
     };
-    const formatter = (value: any) => `R$${value / 1000000}M`;
+    const formatter = (value: any) => `R$${value}`;
     createData();
     return (<ResponsiveContainer width="95%" height="95%">
         <LineChart

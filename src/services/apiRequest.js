@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseUrl = `${process.env.REACT_APP_API_HOST}:${process.env.REACT_APP_API_PORT}/api/`
+const baseUrl = `${process.env.REACT_APP_API_HOST}:${process.env.REACT_APP_API_PORT}/api/monitoramento_despesa/expense_monitoring/`
 
 const queryStringConverter = (params) => params ? '?' + Object.keys(params).filter(key => !!params[key]).map(key => key + '=' + params[key]).join('&') : '';
 

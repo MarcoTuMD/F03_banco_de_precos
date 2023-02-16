@@ -1,4 +1,5 @@
 export const organs = [
+    { value: "", label: '' },
     { value: 10, label: 'CAMARA MUNICIPAL DE ABRE CAMPO' },
     { value: 1000, label: 'PREFEITURA MUNICIPAL DE ITAVERAVA' },
     { value: 1002, label: 'CAMARA MUNICIPAL DE ITINGA' },

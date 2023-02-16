@@ -1,4 +1,5 @@
 export const sources = [
+    { value: "", label: '' },
     { value: 103, label: 'CONTRIBUICAO PARA O REGIME PROPRIO DE PREVIDENCIA SOCIAL (RPPS): PATRONAL' },
     { value: 106, label: 'TRANSFERENCIAS DE RECURSOS PARA O PROGRAMA ESTADUAL DE TRANSPORTE ESCOLAR (PTE).' },
     { value: 107, label: 'PRECATORIOS DO FUNDEF' },

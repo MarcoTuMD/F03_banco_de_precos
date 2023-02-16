@@ -1,4 +1,5 @@
 export const natures = [
+    { value: "", label: '' },
     { value: '3.1.71.99.00', label: 'A CLASSIFICAR' },
     { value: '3.1.74.99.00', label: 'A CLASSIFICAR' },
     { value: '3.1.90.00.00', label: 'APLICACOES DIRETAS' },

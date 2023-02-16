@@ -1,4 +1,5 @@
 export const functions = [
+    { value: "", label: '' },
     { value: 2, label: 'JUDICIARIA' },
     { value: 4, label: 'ADMINISTRACAO' },
     { value: 10, label: 'SAUDE' },

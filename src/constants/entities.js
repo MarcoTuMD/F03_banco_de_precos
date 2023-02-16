@@ -1,4 +1,5 @@
 export const entities = [
+    { value: "", label: '' },
     { value: 3100104, label: 'ABADIA DOS DOURADOS' },
     { value: 3100203, label: 'ABAETE' },
     { value: 3101003, label: 'AGUAS VERMELHAS' },

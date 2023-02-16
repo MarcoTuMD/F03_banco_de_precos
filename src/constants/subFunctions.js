@@ -1,4 +1,5 @@
 export const subFunctions = [
+    { value: "", label: '' },
     { value: 31, label: 'ACAO LEGISLATIVA' },
     { value: 32, label: 'CONTROLE EXTERNO' },
     { value: 92, label: 'REPRESENTACAO JUDICIAL E EXTRAJUDICIAL' },

@@ -7,7 +7,7 @@ interface Data {
     Previsao?: number;
 }
 
-export interface apiData {
+export interface apiDataTime {
     ano_exercicio: string,
     mes_exercicio: string,
     vlr: number,
@@ -15,7 +15,7 @@ export interface apiData {
 };
 
 interface TimeViewChartProps {
-    apiData: apiData[];
+    apiData: apiDataTime[];
 }
 function TimeViewChart({ apiData }: TimeViewChartProps) {
     let data: Data[] = [];
@@ -45,7 +45,7 @@ function TimeViewChart({ apiData }: TimeViewChartProps) {
         }
     };
 
-    const formatter = (value: any) => `R$${value / 1000000000}B`;
+    const formatter = (value: any) => `R$${value}`;
 
     createData();
 
